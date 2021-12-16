@@ -17,9 +17,9 @@ namespace ClusterAnalysis
             // and then save the results into db!
 
             // once you have the data, you are looking for:
-            // ring1 with >= 4 positives (i.e. a positive value surrounded by >= 4 positive values)
-            // ring1 with >= 7 positives
-            // ring2 with >= 13 positives
+            // result 1: ring1 with >= 4 positives (i.e. a positive value surrounded by >= 4 positive values)
+            // result 2: ring1 with >= 7 positives
+            // result 3: result 2 plus ring2 with >= 13 positives
 
             // ideally you'd be looking to save the results of your investigation somehow, so that you can go back and see 
             // what the results were as opposed to having to run the system again.
