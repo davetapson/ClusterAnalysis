@@ -1,10 +1,11 @@
-﻿using Serilog;
+﻿using Serilog; 
 using System;
 using System.IO;
 using System.Reflection;
 
 namespace ClusterAnalysis
 {
+    // comment by mike on 19 dec to test whether he has succesfully cloned the project, added a comment on the dev branch and pushed back to github
     class Program
     {
         static void Main(string[] args)
