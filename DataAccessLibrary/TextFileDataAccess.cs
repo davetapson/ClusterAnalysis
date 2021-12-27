@@ -22,7 +22,9 @@ namespace DataAccessLibrary
             foreach (var line in lines)
             {
                 SingleRowModel c = new SingleRowModel();
-                var vals = line.Split(',');
+                //     var vals = line.Split(',');
+                // use the below to process variations in spacing of data received.
+                var vals = line.Split(new char[] { ' ',',' }, StringSplitOptions.RemoveEmptyEntries);
 
                 if (vals.Length < 1)
                 {

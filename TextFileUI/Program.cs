@@ -21,7 +21,6 @@ namespace TextFileUI
             GetAllContacts();
 
             Console.WriteLine(" ");
-            Console.WriteLine("Thanks for the curve ball with the uneven spaces, i'll need to write something to sort that out :)...");
             Console.WriteLine("Done processing text file, ready to move the cluster data into db for later analysis");
 
             Console.ReadLine();
