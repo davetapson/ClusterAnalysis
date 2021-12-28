@@ -26,45 +26,16 @@ namespace TextFileUI
             Console.ReadLine();
         }
 
-        //public static void RemoveUser()
-        //{
-        //    var contacts = db.ReadAllRecords(textFile);
-        //    contacts.RemoveAt(0);
-        //    db.WriteAllRecords(contacts, textFile);
-        //}
-
-        //public static void RemovePhoneNumberFromUser(string phoneNumber)
-        //{
-        //    var contacts = db.ReadAllRecords(textFile);
-        //    contacts[0].PhoneNumbers.Remove(phoneNumber);
-        //    db.WriteAllRecords(contacts, textFile);
-        //}
-
-        //private static void UpdateContactsFirstName(string firstName)
-        //{
-        //    var contacts = db.ReadAllRecords(textFile);
-        //    contacts[0].FirstName = firstName;
-        //    db.WriteAllRecords(contacts, textFile);
-        //}
-
         private static void GetAllContacts()
         {
             var rows = db.ReadAllRecords(textFile);
 
             foreach (var singleRow in rows)
             {
+                
                 Console.WriteLine($"{ singleRow.Id },{ singleRow.Six},{ singleRow.Eight},{ singleRow.Ten},{ singleRow.Twelve},{ singleRow.Fourteen} ");
             }
         }
-
-        //private static void CreateContact(ContactModel contact)
-        //{
-        //    var contacts = db.ReadAllRecords(textFile);
-
-        //    contacts.Add(contact);
-
-        //    db.WriteAllRecords(contacts, textFile);
-        //}
 
         private static void InitializeConfiguration()
         {

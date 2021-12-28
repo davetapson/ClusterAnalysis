@@ -23,7 +23,7 @@ namespace DataAccessLibrary
             {
                 SingleRowModel c = new SingleRowModel();
                 //     var vals = line.Split(',');
-                // use the below to process variations in spacing of data received.
+                // use the below to process variations in spacing of data received. this will process any number of spaces and a comma.
                 var vals = line.Split(new char[] { ' ',',' }, StringSplitOptions.RemoveEmptyEntries);
 
                 if (vals.Length < 1)
