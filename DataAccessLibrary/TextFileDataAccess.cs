@@ -9,42 +9,21 @@ namespace DataAccessLibrary
 {
     public class TextFileDataAccess
     {
-        public List<SingleRowModel> ReadAllRecords(string textFile)
+
+        //   public List<SingleRowModel> ReadAllData(string textFile)
+        public string[] ReadAllDataFromTextFile(string textFile)
         {
             if (File.Exists(textFile) == false)
             {
-                return new List<SingleRowModel>();
+                throw new Exception($"Could not find text file");
             }
 
             var lines = File.ReadAllLines(textFile);
-            List<SingleRowModel> output = new List<SingleRowModel>();
 
-            foreach (var line in lines)
-            {
-                SingleRowModel c = new SingleRowModel();
-                //     var vals = line.Split(',');
-                // use the below to process variations in spacing of data received. this will process any number of spaces and a comma.
-                var vals = line.Split(new char[] { ' ',',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                if (vals.Length < 1)
-                {
-                    throw new Exception($"Invalid row of data: { line }");
-                }
-
-                c.Id = vals[0];
-                c.Six = vals[1];
-                c.Eight = vals[2];
-                c.Ten = vals[3];
-                c.Twelve= vals[4];
-                c.Fourteen = vals[5];
-
-                output.Add(c);
-            }
-
-            return output;
+            return lines;
         }
 
-        public void WriteAllRecords(List<SingleRowModel> rows, string textFile)
+        public void WriteAllData(List<SingleRowModel> rows, string textFile)
         {
             List<string> lines = new List<string>();
 

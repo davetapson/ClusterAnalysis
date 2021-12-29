@@ -5,11 +5,9 @@ VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClusterAnalysis", "ClusterAnalysis\ClusterAnalysis.csproj", "{EF91EE94-A143-4F7B-A737-1FB5B3CDFBC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileUI", "TextFileUI\TextFileUI.csproj", "{B5F1B926-EC52-4586-9824-665550C0C525}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{D0D5A42F-DD5B-4F4C-B965-8D9E5A8FBD6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{D0D5A42F-DD5B-4F4C-B965-8D9E5A8FBD6C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqliteUI", "SqliteUI\SqliteUI.csproj", "{F391D2AF-D397-4308-8FA4-593692D9A164}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqliteUI", "SqliteUI\SqliteUI.csproj", "{F391D2AF-D397-4308-8FA4-593692D9A164}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		{EF91EE94-A143-4F7B-A737-1FB5B3CDFBC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF91EE94-A143-4F7B-A737-1FB5B3CDFBC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF91EE94-A143-4F7B-A737-1FB5B3CDFBC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5F1B926-EC52-4586-9824-665550C0C525}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5F1B926-EC52-4586-9824-665550C0C525}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5F1B926-EC52-4586-9824-665550C0C525}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5F1B926-EC52-4586-9824-665550C0C525}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D0D5A42F-DD5B-4F4C-B965-8D9E5A8FBD6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D0D5A42F-DD5B-4F4C-B965-8D9E5A8FBD6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0D5A42F-DD5B-4F4C-B965-8D9E5A8FBD6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
