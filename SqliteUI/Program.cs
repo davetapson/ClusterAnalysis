@@ -35,21 +35,28 @@ namespace SqliteUI
 
         private static List<string[]> ReadDataFromTextFile(string textFile, SqliteCrud sql)    // 
         {
+            ClearAllDataInDB(sql);      // this clears any previous data in the db
+
             var rows = db.ReadAllDataFromTextFile(textFile);            //this gets a dirty list of data
 
             List<string[]> CleanRows = new List<string[]>();        // creates a new list for the cleaned data to go into
 
+            var count = 0;
+
             foreach (var singleRow in rows)             // this cleans the data
             {
                 var CleanRow = singleRow.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
-                CleanRows.Add(CleanRow);
+
+                if (count > 0) // don't capture the first row
+                {
+                    CleanRows.Add(CleanRow);
+                }
+                count++;
             }
 
             foreach (var row in CleanRows)             // this sends the data in each row to the sql lite db
             {
-                CreateNewRowInDB(sql, row[0], row[1], row[2], row[3], row[4], row[5]);
-
-           //     Console.WriteLine($"{ row[0] }, { row[1] }, { row[2] }, { row[3] }, { row[4] }, { row[5] } ");
+                    CreateNewRowInDB(sql, row[0], row[1], row[2], row[3], row[4], row[5]);
             }
 
             return CleanRows;
@@ -70,6 +77,11 @@ namespace SqliteUI
             };
 
             sql.CreateRow(rowofdata);
+        }
+
+        private static void ClearAllDataInDB(SqliteCrud sql)     // clears any previous data in the SQL lite DB
+        {
+            sql.ClearAllData();
         }
 
         private static void ReadAllDataInDB(SqliteCrud sql)     // reads data in the SQL lite DB

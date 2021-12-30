@@ -21,6 +21,12 @@ namespace DataAccessLibrary
             string sql = "select * from data";
             return db.LoadData<SingleRowModel, dynamic>(sql, new { }, _connectionString);
         }
+        public void ClearAllData()
+        {
+            string sql = "delete from data";
+            db.SaveData(sql, new { }, _connectionString);
+         //   db.LoadData<SingleRowModel, dynamic>(sql, new { }, _connectionString);
+        }
 
         public void CreateRow(SingleRowModel row)
         {
