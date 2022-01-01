@@ -23,15 +23,19 @@ namespace SqliteUI
 
             //       ReadDataFromTextFile(textFile, sql);       // this method fetches data from the text file, cleans it and sends to the SQL lite DB
 
-            //CreateNewRowInDB(sql, "32", "33", "34", "35", "36", "37");            // this adds one line if data to the sql lite db
+            //       ReadAllDataInDB(sql);   // this method fetches all data from the sqlite database data base
 
-            //       ReadAllDataInDB(sql);   // this method fetches data from the sqlite database data base
+            // these find all the positive value in the table
+            FindPositiveValues(sql, "Six");             
+            FindPositiveValues(sql, "Eight");
+            FindPositiveValues(sql, "Ten");
+            FindPositiveValues(sql, "Twelve");
+            FindPositiveValues(sql, "Fourteen");
 
-            //        FindPositiveValues(sql);
-
+            // this checks an individual cell to see if it's positive... i might use this to evaluate cells around a positive cell
             string row = "8";
             string col = "Eight";
-            var isitpositive = CheckIfPositive(sql, row, col);
+//            var isitpositive = CheckIfPositive(sql, row, col);
 
             Console.WriteLine(" ");
             Console.WriteLine("Done Processing SQLite");
@@ -99,13 +103,13 @@ namespace SqliteUI
             }
         }
 
-        private static void FindPositiveValues(SqliteCrud sql)
+        private static void FindPositiveValues( SqliteCrud sql, string col )
         {
-            var posValueIds = sql.FindPositiveValuesInColumn();
-            Console.WriteLine("Column Six");
+            var posValueIds = sql.FindPositiveValuesInColumn( col );
+            Console.WriteLine($"Column {col}");
             foreach (var value in posValueIds)
             {
-                Console.WriteLine($"Id  { value.Id }, { value.Six } ");
+                Console.WriteLine($" Id's: { value.Id } ");
                 //   Console.WriteLine($"{ value.Id }: { value.Six } { value.Eight } { value.Ten } { value.Twelve } { value.Fourteen } ");
             }
         }

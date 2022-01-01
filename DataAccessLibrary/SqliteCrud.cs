@@ -39,21 +39,20 @@ namespace DataAccessLibrary
                         _connectionString);
         }
 
-        public List<SingleRowModel> FindPositiveValuesInColumn()
+        public List<SingleRowModel> FindPositiveValuesInColumn(string col)      // this returns the Id's of all positive values in a given column
         {
-            string sql = "SELECT Id,Six From data Where Six > 0";
+            string sql = $"SELECT Id From data Where { col } > 0";
             var posValueIds = db.LoadData < SingleRowModel, dynamic> (sql, new { }, _connectionString);
             return posValueIds;
-            //   db.LoadData<SingleRowModel, dynamic>(sql, new { }, _connectionString);
         }
 
-        public bool ReturnTrueIfPositive(string _Id, string col) 
+        public bool ReturnTrueIfPositive(string _Id, string col)    // this checks a specific field in the DB to determine if its positive
         {
             bool Answer = false;
             string sql = $"SELECT { col } FROM data WHERE Id={ _Id } AND { col }>0";
             var value = db.LoadData<SingleRowModel, dynamic>(sql, new { }, _connectionString);
             
-            var count = 0;
+            var count = 0;                      // if the count of the v's in value is zero then the value of  the field is not positive
             foreach ( var v in value)
             {
                 count++;
@@ -63,7 +62,6 @@ namespace DataAccessLibrary
             {
                 Answer = true;
             }
-
             return Answer;
         }
 
