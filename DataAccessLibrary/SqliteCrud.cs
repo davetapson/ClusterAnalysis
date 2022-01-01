@@ -21,10 +21,12 @@ namespace DataAccessLibrary
             string sql = "select * from data";
             return db.LoadData<SingleRowModel, dynamic>(sql, new { }, _connectionString);
         }
+
         public void ClearAllData()
         {
             string sql = "delete from data";
             db.SaveData(sql, new { }, _connectionString);
+           
          //   db.LoadData<SingleRowModel, dynamic>(sql, new { }, _connectionString);
         }
 
@@ -36,5 +38,35 @@ namespace DataAccessLibrary
                         new { row.Id, row.Six, row.Eight, row.Ten, row.Twelve, row.Fourteen },
                         _connectionString);
         }
+
+        public List<SingleRowModel> FindPositiveValuesInColumn()
+        {
+            string sql = "SELECT Id,Six From data Where Six > 0";
+            var posValueIds = db.LoadData < SingleRowModel, dynamic> (sql, new { }, _connectionString);
+            return posValueIds;
+            //   db.LoadData<SingleRowModel, dynamic>(sql, new { }, _connectionString);
+        }
+
+        public bool ReturnTrueIfPositive(string _Id, string col) 
+        {
+            bool Answer = false;
+            string sql = $"SELECT { col } FROM data WHERE Id={ _Id } AND { col }>0";
+            var value = db.LoadData<SingleRowModel, dynamic>(sql, new { }, _connectionString);
+            
+            var count = 0;
+            foreach ( var v in value)
+            {
+                count++;
+            }
+
+            if (count > 0)
+            {
+                Answer = true;
+            }
+
+            return Answer;
+        }
+
+
     }
 }

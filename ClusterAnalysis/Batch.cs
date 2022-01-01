@@ -11,10 +11,10 @@ namespace ClusterAnalysis
 
             // stuff
 
-            // so, you need to find out how to import the data, and then hold it in a fashion that lets you investigate it.
-            // first prize is to save the files on your disk somewhere and then read them from there => file handling
-            // into a db => db handling
-            // and then save the results into db!
+            // so, you need to find out how to import the data, and then hold it in a fashion that lets you investigate it.     // done
+            // first prize is to save the files on your disk somewhere and then read them from there => file handling           // done
+            // into a db => db handling                 // done
+            // and then save the results into db!       // done
 
             // once you have the data, you are looking for:
             // result 1: ring1 with >= 4 positives (i.e. a positive value surrounded by >= 4 positive values)

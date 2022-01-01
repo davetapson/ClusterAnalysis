@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using DataAccessLibrary;
+﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SqliteUI
 {
@@ -21,18 +21,23 @@ namespace SqliteUI
 
             SqliteCrud sql = new SqliteCrud(GetConnectionString());         // this makes a connection to the sql lite db
 
-            ReadDataFromTextFile(textFile, sql);       // this method fetches data from the text file, cleans it and sends to the SQL lite DB
+            //       ReadDataFromTextFile(textFile, sql);       // this method fetches data from the text file, cleans it and sends to the SQL lite DB
 
             //CreateNewRowInDB(sql, "32", "33", "34", "35", "36", "37");            // this adds one line if data to the sql lite db
 
-            ReadAllDataInDB(sql);   // this method fetches data from the sqlite database data base
+            //       ReadAllDataInDB(sql);   // this method fetches data from the sqlite database data base
+
+            //        FindPositiveValues(sql);
+
+            string row = "8";
+            string col = "Eight";
+            var isitpositive = CheckIfPositive(sql, row, col);
 
             Console.WriteLine(" ");
             Console.WriteLine("Done Processing SQLite");
 
             Console.ReadLine();
         }
-
         private static List<string[]> ReadDataFromTextFile(string textFile, SqliteCrud sql)    // 
         {
             ClearAllDataInDB(sql);      // this clears any previous data in the db
@@ -56,7 +61,7 @@ namespace SqliteUI
 
             foreach (var row in CleanRows)             // this sends the data in each row to the sql lite db
             {
-                    CreateNewRowInDB(sql, row[0], row[1], row[2], row[3], row[4], row[5]);
+                CreateNewRowInDB(sql, row[0], row[1], row[2], row[3], row[4], row[5]);
             }
 
             return CleanRows;
@@ -92,6 +97,23 @@ namespace SqliteUI
             {
                 Console.WriteLine($"{ row.Id }: { row.Six } { row.Eight } { row.Ten } { row.Twelve } { row.Fourteen } ");
             }
+        }
+
+        private static void FindPositiveValues(SqliteCrud sql)
+        {
+            var posValueIds = sql.FindPositiveValuesInColumn();
+            Console.WriteLine("Column Six");
+            foreach (var value in posValueIds)
+            {
+                Console.WriteLine($"Id  { value.Id }, { value.Six } ");
+                //   Console.WriteLine($"{ value.Id }: { value.Six } { value.Eight } { value.Ten } { value.Twelve } { value.Fourteen } ");
+            }
+        }
+
+        private static bool CheckIfPositive( SqliteCrud sql, string _Id, string col )
+        {
+            var answer = sql.ReturnTrueIfPositive( _Id , col );
+            return answer;
         }
 
         private static string GetConnectionString(string connectionStringName = "Default")          // get the connection string for sql lite DB

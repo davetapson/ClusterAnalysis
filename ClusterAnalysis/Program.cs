@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using DataAccessLibrary;
 
 namespace ClusterAnalysis
 {
@@ -25,7 +26,23 @@ namespace ClusterAnalysis
 
             Log.Information($"{projAssemblyName.Name} ended at {DateTime.Now}");
             Log.CloseAndFlush();
+
+            
+
+            Console.WriteLine(LookInDB());
+            Console.WriteLine("complete...");
+            Console.ReadLine();
         }
+
+        private static string LookInDB()
+        {
+            string stringA = "a";
+            //          CountRowsInDB();
+            
+            return stringA;
+        }
+
+
 
         private static void Analyze(Object o)
         {
@@ -50,6 +67,7 @@ namespace ClusterAnalysis
                 .WriteTo.Console()
                 .WriteTo.File(folderPath + @"\" + projName + ".txt", rollingInterval: RollingInterval.Month)
                 .CreateLogger();
+
         }
 
         private static AssemblyName GetAssemblyName()
