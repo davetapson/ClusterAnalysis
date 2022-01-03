@@ -22,28 +22,27 @@ namespace SqliteUI
 
             SqliteCrud sql = new SqliteCrud(GetConnectionString());         // this makes a connection to the sql lite db
 
-            
-
             var ListOfCleanRows = ReadDataFromTextFile(textFile, sql);       // this method fetches data from the text file, cleans it and sends to the SQL lite DB
 
             var _dataTable = MakeDataTable("Initial Cleaned Data Table", ListOfCleanRows);              // this method takes the cleaned data in makes a data table in c#
 
             var dataTablePositiveValuesAreOnes = MakePositiveValuesOnes("Data Table with all positives marked as Ones", _dataTable);        // this method takes a data table and makes all the positive values Ones and negatives Zero
 
-            TallyUpThePositives("Data Table showing result 1 only (positive values surrounded by 4 positives) ", dataTablePositiveValuesAreOnes);
+            TallyUpThePositives(dataTablePositiveValuesAreOnes);
+            Console.WriteLine(" ");
 
-            //       ReadAllDataInDB(sql);   // this method fetches all data from the sqlite database data base
+            //ReadAllDataInDB(sql);   // this method fetches all data from the sqlite database data base
 
-            // these find all the positive value in the table
+            // these find all the positive value in the table in the SQL Lite DB
             //        FindPositiveValues(sql, "Six");
             //        FindPositiveValues(sql, "Eight");
             //         FindPositiveValues(sql, "Ten");
             //        FindPositiveValues(sql, "Twelve");
             //         FindPositiveValues(sql, "Fourteen");
 
-            // this checks an individual cell to see if it's positive... i might use this to evaluate cells around a positive cell
-      //      string row = "8";
-      //      string col = "Eight";
+            // this checks an individual cell in the SQL Lite DB to see if it's positive... i might use this to evaluate cells around a positive cell
+            //      string row = "8";
+            //      string col = "Eight";
             //            var isitpositive = CheckIfPositive(sql, row, col);
 
             Console.WriteLine(" ");
@@ -52,75 +51,96 @@ namespace SqliteUI
             Console.ReadLine();
         }
 
-        private static void TallyUpThePositives(string NameOfTable, DataTable dataTablePositiveValuesAreOnes)
-        {
-            DataTable dataTableThree = dataTablePositiveValuesAreOnes.Copy();
+        private static void TallyUpThePositives(DataTable dataTablePositiveValuesAreOnes)
+        {   //a
 
-            Console.WriteLine(NameOfTable);
-            var row = 0;
-
-            // Edit the contents of each field based on the value
-            foreach (DataRow dataRow in dataTableThree.Rows)
-            {
-                
-                for (int i = 1; i <= 5; i++)
-                {
-                        dataRow[i] = 0;     //change all values to zero
-                }
-                row++;
-            }
-
-            //Tally up the positives surrounding the initial values
-            foreach (DataRow dataRow in dataTablePositiveValuesAreOnes.Rows)                // refer to the table where positives are ones
-            {
-                    for (int rowCount = 2; rowCount <= 7; rowCount ++ )
-                    {
-
-                            int col = 3; // only the 3rd column is relevant
-
-                            int rwt1 = rowCount - 1;     // top 1
-                            int rwm = rowCount;         // mid
-                            int rwb1 = rowCount + 1;     // bot 1
-
-                            int cL1 = col - 1;           // left 1
-                            int cm= col;                // mid
-                            int cR1 = col + 1;          // right 1
-
-                    // Row .... Column
-                    double ring1_1 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cL1];           // one row above ... Left
-                    double ring1_2 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cm];           // one row above
-                    double ring1_3 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cR1];          // one row above ... Right
-
-                    double ring1_4 = (double)dataTablePositiveValuesAreOnes.Rows[rwm][cL1];        // left
-                    double ring1_5 = (double)dataTablePositiveValuesAreOnes.Rows[rwm][cR1];        // right
-
-                    double ring1_6 = (double)dataTablePositiveValuesAreOnes.Rows[rwb1][cL1];        // one row below .... left
-                    double ring1_7 = (double)dataTablePositiveValuesAreOnes.Rows[rwb1][cm];        // one row below
-                    double ring1_8 = (double)dataTablePositiveValuesAreOnes.Rows[rwb1][cR1];        // one row below  ... right
-
-                    double sum = ring1_1 + ring1_2 + ring1_3 + ring1_4 + ring1_5 + ring1_6 + ring1_7 + ring1_8;
-
-                    if ( sum >= 4 )         // Ring 1 has passed ... next tally up ring 2 for result 2 & 3
-                    {
-                        dataTableThree.Rows[rwm][cm] = sum;         // assign the sum to the initial field
-                        
-                        // Insert code to tally up ring 2
-                    }
-                }
-            }
-
-            //print the contents of the table to the console
-            foreach (DataRow dataRow in dataTableThree.Rows)
-            {
-                Console.WriteLine($" {dataRow[1]}, {dataRow[2]}, {dataRow[3]}, {dataRow[4]}, {dataRow[5]}  ");
-            }
-
+            Console.WriteLine("Tallying up the positives in Ring 1 and Ring 2... ");
             Console.WriteLine(" ");
 
-        }
+            int rowCount = 0;
 
-        private static DataTable MakePositiveValuesOnes(string NameOfTable, DataTable _dataTable)
-        {
+            //Tally up the positives surrounding the initial values
+            foreach (DataRow row1 in dataTablePositiveValuesAreOnes.Rows)                // refer to the table where positives are ones
+            {   //c
+                    int col = 3; // only the 3rd column is relevant
+
+                    int rwt2 = rowCount - 2;     // top 2
+                    int rwt1 = rowCount - 1;     // top 1
+                    int rwm = rowCount;           // mid
+                    int rwb1 = rowCount + 1;    // bot 1
+                    int rwb2 = rowCount + 2;    // bot 2
+
+                    int cL2 = col - 2;           // left 2
+                    int cL1= col - 1;           // left 1
+                    int cm = col;                // mid
+                    int cR1 = col + 1;          // right 1
+                    int cR2 = col + 2;          // right 2
+
+                    double center = (double)dataTablePositiveValuesAreOnes.Rows[rwm][cm];           // check the value of the center field
+
+                if ( center > 0 && rowCount >= 2 && rowCount <=7)       // only evaluate if the center field is positive and we are in row 3 to 8
+                    {   // e
+                        // Row .... Column
+                        double ring1_1 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cL1];           // one row above ... Left
+                        double ring1_2 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cm];           // one row above
+                        double ring1_3 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cR1];          // one row above ... Right
+
+                        double ring1_4 = (double)dataTablePositiveValuesAreOnes.Rows[rwm][cL1];        // left
+                        double ring1_5 = (double)dataTablePositiveValuesAreOnes.Rows[rwm][cR1];        // right
+
+                        double ring1_6 = (double)dataTablePositiveValuesAreOnes.Rows[rwb1][cL1];        // one row below .... left
+                        double ring1_7 = (double)dataTablePositiveValuesAreOnes.Rows[rwb1][cm];        // one row below
+                        double ring1_8 = (double)dataTablePositiveValuesAreOnes.Rows[rwb1][cR1];        // one row below  ... right
+
+                        double sum = ring1_1 + ring1_2 + ring1_3 + ring1_4 + ring1_5 + ring1_6 + ring1_7 + ring1_8;
+
+                        if (sum >= 7)         // Ring 1 has passed result 2
+                        {   // f
+                            Console.WriteLine($"Result 2 for field : row {rwm + 1}, column {cm}... (this positive value is surrounded by 7 positives in ring 1)");
+                            Console.WriteLine("");
+
+                            sum = 0;
+
+                        // tally up ring 2 for result 3
+                        // Row .... Column
+                            double ring2_1 = (double)dataTablePositiveValuesAreOnes.Rows[rwt2][cL2];           // one row above ... Left 2
+                            double ring2_2 = (double)dataTablePositiveValuesAreOnes.Rows[rwt2][cL1];           // one row above ... Left 1
+                            double ring2_3 = (double)dataTablePositiveValuesAreOnes.Rows[rwt2][cm];           // one row above
+                            double ring2_4 = (double)dataTablePositiveValuesAreOnes.Rows[rwt2][cR1];          // one row above ... Right 1
+                            double ring2_5 = (double)dataTablePositiveValuesAreOnes.Rows[rwt2][cR2];          // one row above ... Right 2
+
+                            double ring2_6 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cL2];        // left
+                            double ring2_7 = (double)dataTablePositiveValuesAreOnes.Rows[rwm][cL2];        // left
+                            double ring2_8 = (double)dataTablePositiveValuesAreOnes.Rows[rwb1][cL2];        // left
+
+                            double ring2_9 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cR2];        // right
+                            double ring2_10 = (double)dataTablePositiveValuesAreOnes.Rows[rwm][cR2];        // right
+                            double ring2_11= (double)dataTablePositiveValuesAreOnes.Rows[rwb1][cR2];        // right
+
+                            double ring2_12 = (double)dataTablePositiveValuesAreOnes.Rows[rwb2][cL2];           // one row below ... Left 2
+                            double ring2_13 = (double)dataTablePositiveValuesAreOnes.Rows[rwb2][cL1];           // one row below ... Left 1
+                            double ring2_14 = (double)dataTablePositiveValuesAreOnes.Rows[rwb2][cm];           // one row below
+                            double ring2_15 = (double)dataTablePositiveValuesAreOnes.Rows[rwb2][cR1];          // one row below ... Right 1
+                            double ring2_16 = (double)dataTablePositiveValuesAreOnes.Rows[rwb2][cR2];          // one row below ... Right 2
+
+                            double sum2 = ring2_1 + ring2_2 + ring2_3 + ring2_4 + ring2_5 + ring2_6 + ring2_7 + ring2_8 
+                                                    + ring2_9 + ring2_10 + ring2_11 + ring2_12 + ring2_13 + ring2_14 + ring2_15 + ring2_16;
+
+                            if (sum2 >= 13)         // Ring 2 has passed for result 3
+                            {
+                                Console.WriteLine($"Result 3 for field : row {rwm + 1}, column {cm}... (this positive value is surrounded by 13 positives in ring 2)");
+                                Console.WriteLine("");
+
+                                sum2 = 0;
+                            }
+                        }   //f
+                    }   //e
+                rowCount++;
+            } // c
+        }   //a
+
+             private static DataTable MakePositiveValuesOnes(string NameOfTable, DataTable _dataTable)
+            {
             DataTable dataTableTwo = _dataTable.Copy();
 
             Console.WriteLine(NameOfTable);
