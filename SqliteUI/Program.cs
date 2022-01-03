@@ -46,15 +46,6 @@ namespace SqliteUI
       //      string col = "Eight";
             //            var isitpositive = CheckIfPositive(sql, row, col);
 
-
-     ////       MakeAListOfArraysOfInt();
-
-
-
-  //          ChangeAValueInMyListOfArrays();
-
-     //       PrintTheArray();
-
             Console.WriteLine(" ");
             Console.WriteLine("Done Processing... ");
 
@@ -96,9 +87,9 @@ namespace SqliteUI
                             int cR1 = col + 1;          // right 1
 
                     // Row .... Column
-                    double ring1_1 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cL1];                 // one row above ... Left
+                    double ring1_1 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cL1];           // one row above ... Left
                     double ring1_2 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cm];           // one row above
-                    double ring1_3 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cR1];             // one row above ... Right
+                    double ring1_3 = (double)dataTablePositiveValuesAreOnes.Rows[rwt1][cR1];          // one row above ... Right
 
                     double ring1_4 = (double)dataTablePositiveValuesAreOnes.Rows[rwm][cL1];        // left
                     double ring1_5 = (double)dataTablePositiveValuesAreOnes.Rows[rwm][cR1];        // right
@@ -115,8 +106,6 @@ namespace SqliteUI
                         
                         // Insert code to tally up ring 2
                     }
-
-                    
                 }
             }
 
@@ -197,27 +186,6 @@ namespace SqliteUI
 
             Console.WriteLine(" ");
             return dataTableOne;
-        }
-
-        public static void MakeAListOfArraysOfInt()
-        {
-            List<int[]> arrayListOne = new List<int[]>
-            {
-            new int[] { 1, 2, 3, 4, 5 },
-            new int[] { 6, 7, 8, 9, 10 },
-            new int[] { 11, 12, 13, 14, 15 },
-            new int[] { 16, 17, 18, 19, 20 },
-            new int[] { 21, 22, 23, 24, 25 },
-            new int[] { 26, 27, 28, 29, 30 },
-            new int[] { 31, 32, 33, 34, 35 },
-            new int[] { 36, 37, 38, 39, 40 },
-            new int[] { 41, 42, 43, 44, 45 },
-            new int[] { 46, 47, 48, 49, 50 },
-            };
-            foreach (var arrayOfInt in arrayListOne)
-            {
-                Console.WriteLine($"{arrayOfInt[0]},  {arrayOfInt[1]},  {arrayOfInt[2]},  {arrayOfInt[3]},  {arrayOfInt[4]} ");
-            }
         }
 
         private static List<string[]> ReadDataFromTextFile(string textFile, SqliteCrud sql)    // 
